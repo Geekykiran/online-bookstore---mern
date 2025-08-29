@@ -6,7 +6,7 @@ import {
     deleteBook,
     updateStock,
 } from "../controllers/sellerController.js";
-import { authenticate, authorizeRoles } from "../middleware/authMiddleware.js";
+import { sellerAuth } from "../middleware/sellerAuth.js";
 
 const router = express.Router();
 
@@ -15,36 +15,31 @@ const router = express.Router();
  */
 router.post(
     "/",
-    authenticate,
-    authorizeRoles("seller"),
+    sellerAuth,
     createBook
 );
 
 router.put(
     "/:id",
-    authenticate,
-    authorizeRoles("seller"),
+    sellerAuth,
     updateBook
 );
 
 router.delete(
     "/:id",
-    authenticate,
-    authorizeRoles("seller"),
+    sellerAuth,
     deleteBook
 );
 
 router.patch(
     "/:id/stock",
-    authenticate,
-    authorizeRoles("seller"),
+    sellerAuth,
     updateStock
 );
 
 router.post(
     "/seed",
-    authenticate,
-    authorizeRoles("seller"),
+    sellerAuth,
     seedBooks
 );
 
